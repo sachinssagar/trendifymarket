@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import Pagination from "../components/Pagination";
 
 const HomePage = () => {
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage] = useState(9); // Change this number to adjust the number of products per page
+  const [productsPerPage] = useState(9);
 
   useEffect(() => {
+    setLoading(true);
     axios
       .get(`${process.env.REACT_APP_BACKEND_URL}/products`)
       .then((response) => {
@@ -15,91 +18,61 @@ const HomePage = () => {
       })
       .catch((error) => {
         console.error("Error fetching products:", error);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }, []);
 
-  // Get current products
-  const indexOfLastProduct = currentPage * productsPerPage;
-  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const indexOfLastProducts = currentPage * productsPerPage;
+  const indexOfFirstProducts = indexOfLastProducts - productsPerPage;
   const currentProducts = products.slice(
-    indexOfFirstProduct,
-    indexOfLastProduct
+    indexOfFirstProducts,
+    indexOfLastProducts
   );
 
-  // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
-  // Previous page
-  const goToPrevPage = () => {
-    setCurrentPage((prevPage) => prevPage - 1);
-  };
-
-  // Next page
-  const goToNextPage = () => {
-    setCurrentPage((prevPage) => prevPage + 1);
-  };
 
   return (
     <div className="container mt-4">
-      <h2 className="text-center mb-4">Products</h2>
-      <div className="row">
-        {currentProducts.map((product) => (
-          <div key={product._id} className="col-md-4 mb-4">
-            <Link
-              to={`/product/${product._id}`}
-              style={{ textDecoration: "none", color: "inherit" }}
-            >
-              <div className="card h-100">
-                <img
-                  src={`https://via.placeholder.com/300x200?text=${product.name}`}
-                  className="card-img-top"
-                  alt={product.name}
-                />
-                <div className="card-body">
-                  <h5 className="card-title">{product.name}</h5>
-                  <p className="card-text">{product.description}</p>
-                  <p className="card-text">
-                    <strong>Price: ${product.price}</strong>
-                  </p>
-                </div>
+      <h2>Products</h2>
+      {loading ? (
+        <div>Loading...</div>
+      ) : (
+        <>
+          <div className="row">
+            {currentProducts.map((product) => (
+              <div key={product._id} className="col-md-4 mb-4">
+                <Link
+                  to={`/product/${product._id}`}
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  <div className="card h-100">
+                    <img
+                      src={`https://via.placeholder.com/300x200?text=${product.name}`}
+                      className="card-img-top"
+                      alt={product.name}
+                    />
+                    <div className="card-body">
+                      <h5 className="card-title">{product.name}</h5>
+                      <p className="card-text">{product.description}</p>
+                      <p className="card-text">
+                        <strong>Price: ${product.price}</strong>
+                      </p>
+                    </div>
+                  </div>
+                </Link>
               </div>
-            </Link>
+            ))}
           </div>
-        ))}
-      </div>
-      <nav className="d-flex justify-content-center">
-        <ul className="pagination">
-          <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
-            <button className="page-link" onClick={goToPrevPage}>
-              Previous
-            </button>
-          </li>
-          {Array.from(
-            { length: Math.ceil(products.length / productsPerPage) },
-            (_, i) => (
-              <li
-                key={i + 1}
-                className={`page-item ${currentPage === i + 1 ? "active" : ""}`}
-              >
-                <button onClick={() => paginate(i + 1)} className="page-link">
-                  {i + 1}
-                </button>
-              </li>
-            )
-          )}
-          <li
-            className={`page-item ${
-              currentPage === Math.ceil(products.length / productsPerPage)
-                ? "disabled"
-                : ""
-            }`}
-          >
-            <button className="page-link" onClick={goToNextPage}>
-              Next
-            </button>
-          </li>
-        </ul>
-      </nav>
+          <Pagination
+            productsPerPage={productsPerPage}
+            totalProducts={products.length}
+            paginate={paginate}
+            currentPage={currentPage}
+          />
+        </>
+      )}
     </div>
   );
 };
