@@ -18,22 +18,18 @@ main {
 }
 
 .product-details {
-  background: linear-gradient(
-    to right,
-    #38ef7d,
-    #11998e
-  ); /* Gradient background */
+  background: linear-gradient(to right, #2c3e50, #bdc3c7);
   color: #fff;
   padding: 24px;
 }
 
-.btn-primary {
-  background-color: #38ef7d;
-  border-color: #38ef7d;
+.btn-primary:hover {
+  background-color: #bdc3c7;
+  border-color: #bdc3c7;
   color: #fff;
 }
 
-.btn-primary:hover {
-  background-color: #11998e;
-  border-color: #11998e;
+.btn-primary {
+  background-color: #2c3e50;
+  border-color: #2c3e50;
 }
