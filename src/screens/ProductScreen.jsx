@@ -30,11 +30,11 @@ const ProductScreen = () => {
         <div className="col-md-6">
           <img
             src={`https://via.placeholder.com/400x400?text=${product.name}`}
-            className="img-fluid"
+            className="img-fluid rounded"
             alt={product.name}
           />
         </div>
-        <div className="col-md-6">
+        <div className="col-md-6 rounded product-details">
           <h2>{product.name}</h2>
           <p>
             <strong>Brand:</strong> {product.brand}
@@ -47,17 +47,6 @@ const ProductScreen = () => {
             <strong>Price: ${product.price}</strong>
           </p>
           <button className="btn btn-primary">Add to Cart</button>
-        </div>
-      </div>
-      <div className="row mt-4">
-        <div className="col-md-12">
-          <h3>Product Details</h3>
-          <ul>
-            <li>Feature 1: Description of feature 1</li>
-            <li>Feature 2: Description of feature 2</li>
-            <li>Feature 3: Description of feature 3</li>
-            {/* Add more features as needed */}
-          </ul>
         </div>
       </div>
     </div>

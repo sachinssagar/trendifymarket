@@ -31,11 +31,14 @@ const HomePage = () => {
     indexOfLastProducts
   );
 
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   return (
     <div className="container mt-4">
-      <h2>Products</h2>
+      <h2 className="my-4 text-center">Products</h2>
       {loading ? (
         <div>Loading...</div>
       ) : (

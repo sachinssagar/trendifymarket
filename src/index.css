@@ -16,3 +16,24 @@ main {
   transform: translateY(-5px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
+.product-details {
+  background: linear-gradient(
+    to right,
+    #38ef7d,
+    #11998e
+  ); /* Gradient background */
+  color: #fff;
+  padding: 24px;
+}
+
+.btn-primary {
+  background-color: #38ef7d;
+  border-color: #38ef7d;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background-color: #11998e;
+  border-color: #11998e;
+}
