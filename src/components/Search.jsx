@@ -39,6 +39,19 @@ const Search = () => {
     }
   };
 
+  const handleInputChange = (e) => {
+    setInput(e.target.value);
+    // Filter products based on input as the user types
+    const filtered = products.filter((product) =>
+      product.name.toLowerCase().includes(e.target.value.toLowerCase())
+    );
+    if (!e.target.value) {
+      setFilteredProducts([]);
+    } else {
+      setFilteredProducts(filtered);
+    }
+  };
+
   const handleItemClick = () => {
     setInput("");
     setFilteredProducts([]);
@@ -54,7 +67,7 @@ const Search = () => {
               placeholder="Search"
               aria-label="Search"
               value={input}
-              onChange={(e) => setInput(e.target.value)}
+              onChange={handleInputChange}
               className="me-2"
             />
             <Button variant="outline-light" type="submit">
