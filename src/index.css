@@ -1,5 +1,8 @@
 main {
-  min-height: 80vh;
+  max-width: 128Øpx;
+  margin: auto;
+  min-height: 90vh;
+  padding: 10px;
 }
 
 .logo {

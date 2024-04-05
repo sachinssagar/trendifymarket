@@ -1,15 +1,9 @@
 import React from "react";
-import {
-  Navbar,
-  Nav,
-  Container,
-  Form,
-  FormControl,
-  Button,
-} from "react-bootstrap";
+import { Navbar, Nav, Container } from "react-bootstrap";
 import { FaShoppingCart, FaUser } from "react-icons/fa";
 import { LinkContainer } from "react-router-bootstrap";
 import logo from "../assets/logo.png";
+import Search from "./Search";
 
 const Header = () => {
   return (
@@ -22,18 +16,8 @@ const Header = () => {
               TrendifyMarket
             </Navbar.Brand>
           </LinkContainer>
-          <Nav className="flex-grow-1 d-flex align-items-center justify-content-center">
-            <Form className="d-flex" role="search">
-              <FormControl
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-                className="me-2"
-              />
-              <Button variant="outline-light" type="submit">
-                Search
-              </Button>
-            </Form>
+          <Nav className="d-flex justify-content-between align-items-center">
+            <Search />
           </Nav>
           <Nav>
             <LinkContainer to="/cart">
