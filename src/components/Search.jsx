@@ -19,7 +19,7 @@ const Search = () => {
     axios
       .get(`${process.env.REACT_APP_BACKEND_URL}/products`)
       .then((response) => {
-        setProducts(response.data);
+        setProducts(response.data.data);
       })
       .catch((error) => {
         console.error("Error fetching product details:", error);

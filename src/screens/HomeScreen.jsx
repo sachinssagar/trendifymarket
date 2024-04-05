@@ -1,20 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import Pagination from "../components/Pagination";
 
 const HomePage = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage] = useState(9);
+  const [totalPages, setTotalPages] = useState(1);
+  const limit = 9;
 
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`${process.env.REACT_APP_BACKEND_URL}/products`)
+      .get(
+        `${process.env.REACT_APP_BACKEND_URL}/products?page=${currentPage}&limit=${limit}`
+      )
       .then((response) => {
-        setProducts(response.data);
+        setProducts(response.data.data);
+        setTotalPages(Math.ceil(response.data.total / limit));
       })
       .catch((error) => {
         console.error("Error fetching products:", error);
@@ -22,18 +25,10 @@ const HomePage = () => {
       .finally(() => {
         setLoading(false);
       });
-  }, []);
+  }, [currentPage]);
 
-  const indexOfLastProducts = currentPage * productsPerPage;
-  const indexOfFirstProducts = indexOfLastProducts - productsPerPage;
-  const currentProducts = products.slice(
-    indexOfFirstProducts,
-    indexOfLastProducts
-  );
-
-  const paginate = (pageNumber) => {
+  const goToPage = (pageNumber) => {
     setCurrentPage(pageNumber);
-    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
@@ -44,7 +39,7 @@ const HomePage = () => {
       ) : (
         <>
           <div className="row">
-            {currentProducts.map((product) => (
+            {products.map((product) => (
               <div key={product._id} className="col-md-4 mb-4">
                 <Link
                   to={`/product/${product._id}`}
@@ -68,12 +63,24 @@ const HomePage = () => {
               </div>
             ))}
           </div>
-          <Pagination
-            productsPerPage={productsPerPage}
-            totalProducts={products.length}
-            paginate={paginate}
-            currentPage={currentPage}
-          />
+          <div className="d-flex justify-content-center mt-4">
+            {totalPages && (
+              <ul className="pagination">
+                {Array.from({ length: totalPages }, (_, i) => (
+                  <li key={i + 1} className="page-item">
+                    <button
+                      className={`btn btn-outline-primary page-link ${
+                        currentPage === i + 1 ? "active" : ""
+                      }`}
+                      onClick={() => goToPage(i + 1)}
+                    >
+                      {i + 1}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
         </>
       )}
     </div>
