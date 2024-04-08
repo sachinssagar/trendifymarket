@@ -1,19 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { MdClear } from "react-icons/md";
 
 const HomePage = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [searchTerm, setSearchTerm] = useState("");
   const limit = 9;
 
   useEffect(() => {
     setLoading(true);
     axios
       .get(
-        `${process.env.REACT_APP_BACKEND_URL}/products?page=${currentPage}&limit=${limit}`
+        `${process.env.REACT_APP_BACKEND_URL}/products?page=${currentPage}&limit=${limit}&search=${searchTerm}`
       )
       .then((response) => {
         setProducts(response.data.data);
@@ -25,15 +27,47 @@ const HomePage = () => {
       .finally(() => {
         setLoading(false);
       });
-  }, [currentPage]);
+  }, [currentPage, searchTerm]);
 
   const goToPage = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
 
+  const handleSearchInputChange = (event) => {
+    setSearchTerm(event.target.value);
+    setCurrentPage(1);
+  };
+
+  const clearSearch = () => {
+    setSearchTerm("");
+    setCurrentPage(1);
+  };
+
   return (
     <div className="container mt-4">
       <h2 className="my-4 text-center">Products</h2>
+      <div className="mb-4">
+        <div className="input-group">
+          <input
+            type="text"
+            placeholder="Search products..."
+            value={searchTerm}
+            onChange={handleSearchInputChange}
+            className="form-control"
+          />
+          {searchTerm && (
+            <div className="input-group-append">
+              <button
+                className="btn btn-outline-secondary"
+                type="button"
+                onClick={clearSearch}
+              >
+                <MdClear />
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
       {loading ? (
         <div>Loading...</div>
       ) : (

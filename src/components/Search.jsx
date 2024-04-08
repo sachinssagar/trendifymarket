@@ -14,17 +14,23 @@ const Search = () => {
   const [input, setInput] = useState("");
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
+  const [initialLoad, setInitialLoad] = useState(true); // Track initial load
 
   useEffect(() => {
-    axios
-      .get(`${process.env.REACT_APP_BACKEND_URL}/products`)
-      .then((response) => {
-        setProducts(response.data.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching product details:", error);
-      });
-  }, []);
+    if (!initialLoad) {
+      // Fetch products only if it's not the initial load
+      axios
+        .get(`${process.env.REACT_APP_BACKEND_URL}/products`)
+        .then((response) => {
+          setProducts(response.data.data);
+        })
+        .catch((error) => {
+          console.error("Error fetching product details:", error);
+        });
+    } else {
+      setInitialLoad(false); // Set initialLoad to false after the first render
+    }
+  }, [initialLoad]);
 
   const handleSearch = (e) => {
     e.preventDefault();
