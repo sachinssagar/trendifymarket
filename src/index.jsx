@@ -13,19 +13,3 @@ root.render(
   </BrowserRouter>
   // </React.StrictMode>
 );
-
-// const isStrictMode = false;
-
-// const MainApp = isStrictMode ? (
-//   <React.StrictMode>
-//     <BrowserRouter>
-//       <App />
-//     </BrowserRouter>
-//   </React.StrictMode>
-// ) : (
-//   <BrowserRouter>
-//     <App />
-//   </BrowserRouter>
-// );
-
-// root.render(MainApp);
