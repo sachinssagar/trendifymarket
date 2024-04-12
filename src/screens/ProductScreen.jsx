@@ -41,9 +41,10 @@ const ProductScreen = () => {
           <div className="row">
             <div className="col-md-6">
               <img
-                src={`https://via.placeholder.com/400x400?text=${product.name}`}
+                src={product.image.url}
                 className="img-fluid rounded"
                 alt={product.name}
+                style={{ width: "400px", height: "450" }}
               />
             </div>
             <div className="col-md-6 rounded product-details">

@@ -81,7 +81,7 @@ const HomePage = () => {
                 >
                   <div className="card h-100">
                     <img
-                      src={`https://via.placeholder.com/300x200?text=${product.name}`}
+                      src={product.image.url}
                       className="card-img-top"
                       alt={product.name}
                     />
