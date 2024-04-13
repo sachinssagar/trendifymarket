@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
+import { SyncLoader } from "react-spinners";
 import axios from "axios";
 
-const ProductScreen = () => {
+const Product = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -25,14 +26,14 @@ const ProductScreen = () => {
     // }
   }, [id]);
 
-  if (!product) {
-    return <div>Loading...</div>;
-  }
+  const defaultImageUrl = "https://via.placeholder.com/300x200";
 
   return (
     <div className="container mt-4">
       {isLoading ? (
-        <div>Loading...</div>
+        <div className="loader-container">
+          <SyncLoader color="#36d7b7" margin={10} size={20} />
+        </div>
       ) : (
         <>
           <Link to="/" className="btn btn-secondary mb-3">
@@ -41,10 +42,9 @@ const ProductScreen = () => {
           <div className="row">
             <div className="col-md-6">
               <img
-                src={product.image.url}
-                className="img-fluid rounded"
-                alt={product.name}
-                style={{ width: "400px", height: "450" }}
+                src={product.image.url ?? defaultImageUrl}
+                className="img-fluid rounded product-image"
+                alt={product.name || "Product Image"}
               />
             </div>
             <div className="col-md-6 rounded product-details">
@@ -68,4 +68,4 @@ const ProductScreen = () => {
   );
 };
 
-export default ProductScreen;
+export default Product;

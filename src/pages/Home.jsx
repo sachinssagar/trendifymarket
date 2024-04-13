@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { SyncLoader } from "react-spinners";
 import { MdClear } from "react-icons/md";
 
-const HomePage = () => {
+const Home = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -43,6 +44,8 @@ const HomePage = () => {
     setCurrentPage(1);
   };
 
+  const defaultImageUrl = "https://via.placeholder.com/300x200";
+
   return (
     <div className="container mt-4">
       <h2 className="my-4 text-center">Products</h2>
@@ -69,7 +72,9 @@ const HomePage = () => {
         </div>
       </div>
       {loading ? (
-        <div>Loading...</div>
+        <div className="loader-container">
+          <SyncLoader color="#36d7b7" margin={10} size={20} />
+        </div>
       ) : (
         <>
           <div className="row">
@@ -81,15 +86,15 @@ const HomePage = () => {
                 >
                   <div className="card h-100">
                     <img
-                      src={product.image.url}
-                      className="card-img-top"
-                      alt={product.name}
+                      src={product?.image?.url || defaultImageUrl}
+                      className="card-img-top home-product-image"
+                      alt={product?.name || "Product Image"}
                     />
                     <div className="card-body">
-                      <h5 className="card-title">{product.name}</h5>
-                      <p className="card-text">{product.description}</p>
+                      <h5 className="card-title">{product?.name}</h5>
+                      <p className="card-text">{product?.description}</p>
                       <p className="card-text">
-                        <strong>Price: ${product.price}</strong>
+                        <strong>Price: ${product?.price}</strong>
                       </p>
                     </div>
                   </div>
@@ -121,4 +126,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default Home;

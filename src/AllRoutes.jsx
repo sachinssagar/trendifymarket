@@ -1,15 +1,21 @@
 import { Routes, Route } from "react-router-dom";
-import HomeScreen from "./screens/HomeScreen";
-import ProductScreen from "./screens/ProductScreen";
-import PageNotFound from "./screens/PageNotFound";
+import Home from "./pages/Home";
+import Product from "./pages/Product";
+import PageNotFound from "./pages/PageNotFound";
+import Login from "./pages/SignIn";
+import Signup from "./pages/SignUp";
+import Cart from "./components/Cart";
+import UserProfile from "./pages/UserProfile";
 
 const AllRoutes = () => {
   return (
     <Routes>
-      <Route path="/" element={<HomeScreen />} />
-      <Route path="/product/:id" element={<ProductScreen />} />{" "}
-      {/* <Route path="/login" element={<LoginPage />} />
-      <Route path="/cart" element={<CartPage />} /> */}{" "}
+      <Route path="/" element={<Home />} />
+      <Route path="/product/:id" element={<Product />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<Signup />} />
+      <Route path="/cart" element={<Cart />} />
+      <Route path="/profile" element={<UserProfile />} />
       <Route path="*" element={<PageNotFound title="Page Not Found" />} />
     </Routes>
   );
