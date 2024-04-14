@@ -7,10 +7,8 @@ const Product = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  // const [initialLoad, setInitialLoad] = useState(true);
 
   useEffect(() => {
-    // if (!initialLoad) {
     setIsLoading(true);
     axios
       .get(`${process.env.REACT_APP_BACKEND_URL}/products/${id}`)
@@ -21,9 +19,6 @@ const Product = () => {
         console.error("Error fetching product details:", error);
       })
       .finally(() => setIsLoading(false));
-    // } else {
-    //   setInitialLoad(false);
-    // }
   }, [id]);
 
   const defaultImageUrl = "https://via.placeholder.com/300x200";
@@ -43,7 +38,7 @@ const Product = () => {
             <div className="col-md-6">
               <img
                 src={product.image.url ?? defaultImageUrl}
-                className="img-fluid rounded product-image"
+                className="img-fluid rounded product-image mx-auto d-block"
                 alt={product.name || "Product Image"}
               />
             </div>

@@ -87,7 +87,7 @@ const Home = () => {
                   <div className="card h-100">
                     <img
                       src={product?.image?.url || defaultImageUrl}
-                      className="card-img-top home-product-image"
+                      className="card-img-top home-product-image mx-auto d-block"
                       alt={product?.name || "Product Image"}
                     />
                     <div className="card-body">

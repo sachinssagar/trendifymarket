@@ -4,6 +4,7 @@ import { FaShoppingCart, FaUser, FaUserCircle } from "react-icons/fa";
 import { LinkContainer } from "react-router-bootstrap";
 import logo from "../assets/logo.png";
 import Search from "./Search";
+import { toast } from "react-toastify";
 
 import { useNavigate } from "react-router-dom";
 
@@ -25,6 +26,7 @@ const Header = () => {
 
   const logOut = () => {
     localStorage.removeItem("token");
+    toast.success("Logged out successfully!");
     navigate("/login");
   };
 

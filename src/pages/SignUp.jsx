@@ -1,15 +1,16 @@
-// SignupScreen.jsx
-
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const Signup = () => {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const handleSignup = async (e) => {
     e.preventDefault();
@@ -23,9 +24,10 @@ const Signup = () => {
           password,
         }
       );
-
-      // If signup is successful, you can redirect the user to the login page
-      console.log("Signup successful:", response.data);
+      if (response.status === 201) {
+        toast.success("Account Created successfully!");
+      }
+      navigate("/login");
     } catch (error) {
       // If signup fails, display error message
       setError("Signup failed. Please try again.");

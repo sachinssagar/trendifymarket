@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
+import { toast } from "react-toastify";
 import axios from "axios";
-
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
@@ -24,17 +24,16 @@ const Login = () => {
         }
       );
 
-      // If login is successful, redirect user to dashboard or home page
-      console.log("Login successful:", response.data);
-
       const token = response.data.token;
 
       localStorage.setItem("token", token);
-      navigate("/profile");
+      navigate("/");
+      toast.success("Login successful!");
     } catch (error) {
       // If login fails, display error message
       setError("Invalid email or password");
       console.error("Login error:", error);
+      toast.error("Login failed. Please try again.");
     }
   };
 
