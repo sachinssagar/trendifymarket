@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import { SyncLoader } from "react-spinners";
 import axios from "axios";
+import Loader from "../common/Loader";
 
 const Product = () => {
   const { id } = useParams();
@@ -27,7 +27,7 @@ const Product = () => {
     <div className="container mt-4">
       {isLoading ? (
         <div className="loader-container">
-          <SyncLoader color="#36d7b7" margin={10} size={20} />
+          <Loader />
         </div>
       ) : (
         <>

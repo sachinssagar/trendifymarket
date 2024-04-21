@@ -26,12 +26,13 @@ const Signup = () => {
       );
       if (response.status === 201) {
         toast.success("Account Created successfully!");
+        localStorage.removeItem("token");
       }
       navigate("/login");
     } catch (error) {
-      // If signup fails, display error message
       setError("Signup failed. Please try again.");
       console.error("Signup error:", error);
+      toast.error("Registration failed. Please try again.");
     }
   };
 
