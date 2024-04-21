@@ -11,7 +11,7 @@ const Product = () => {
   useEffect(() => {
     setIsLoading(true);
     axios
-      .get(`${process.env.REACT_APP_BACKEND_URL}/products/${id}`)
+      .get(`${process.env.REACT_APP_API_URL}/products/${id}`)
       .then((response) => {
         setProduct(response.data);
       })
@@ -48,7 +48,7 @@ const Product = () => {
                 <strong>Brand:</strong> {product.brand}
               </p>
               <p>
-                <strong>Category:</strong> {product.category}
+                <strong>Category:</strong> {product.category.name}
               </p>
               <p className="lead">{product.description}</p>
               <p className="lead">

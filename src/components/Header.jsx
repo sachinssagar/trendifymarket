@@ -3,9 +3,7 @@ import { Navbar, Nav, Container, Button } from "react-bootstrap";
 import { FaShoppingCart, FaUser, FaUserCircle } from "react-icons/fa";
 import { LinkContainer } from "react-router-bootstrap";
 import logo from "../assets/logo.png";
-import Search from "./Search";
 import { toast } from "react-toastify";
-
 import { useNavigate } from "react-router-dom";
 
 const Header = () => {
@@ -40,9 +38,7 @@ const Header = () => {
               TrendifyMarket
             </Navbar.Brand>
           </LinkContainer>
-          <Nav className="d-flex justify-content-between align-items-center">
-            <Search />
-          </Nav>
+
           <Nav>
             {isLoggedIn ? (
               <>
