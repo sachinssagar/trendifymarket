@@ -39,7 +39,7 @@ const Home = () => {
     setCurrentPage(pageNumber);
   };
 
-  const defaultImageUrl = "https://via.placeholder.com/300x200";
+  const defaultImageUrl = "https://via.placeholder.com/300x200"; //default image
 
   return (
     <div className="container mt-4">
