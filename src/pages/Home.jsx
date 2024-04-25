@@ -56,7 +56,10 @@ const Home = () => {
         <>
           <div className="row">
             {products.map((product) => (
-              <div key={product._id} className="col-md-4 mb-4">
+              <div
+                key={product._id}
+                className="col-xl-4 col-lg-6 col-md-6 mb-4"
+              >
                 <Link
                   to={`/product/${product._id}`}
                   style={{ textDecoration: "none", color: "inherit" }}

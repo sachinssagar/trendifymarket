@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Navbar, Nav, Container, Button } from "react-bootstrap";
+import { Navbar, Nav, Container } from "react-bootstrap";
 import { FaShoppingCart, FaUser, FaUserCircle } from "react-icons/fa";
 import { LinkContainer } from "react-router-bootstrap";
 import logo from "../assets/logo.png";
@@ -30,7 +30,12 @@ const Header = () => {
 
   return (
     <header>
-      <Navbar bg="dark" variant="dark" expand="md" collapseOnSelect>
+      <Navbar
+        variant="dark"
+        expand="md"
+        style={{ background: "#2A272A" }}
+        collapseOnSelect
+      >
         <Container>
           <LinkContainer to="/">
             <Navbar.Brand>
@@ -47,10 +52,7 @@ const Header = () => {
                     <FaUserCircle /> Profile
                   </Nav.Link>
                 </LinkContainer>
-
-                <Button type="button" onClick={logOut}>
-                  Logout
-                </Button>
+                <Nav.Link onClick={logOut}>Logout</Nav.Link>
               </>
             ) : (
               <>
