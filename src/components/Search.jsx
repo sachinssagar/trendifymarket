@@ -1,15 +1,15 @@
-import React, { useState } from "react";
-import { FaSearch } from "react-icons/fa";
+import React, { useState } from 'react';
+import { FaSearch } from 'react-icons/fa';
 
 const Search = ({ onSearch }) => {
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState('');
 
   const handleSearch = () => {
     onSearch(searchTerm.trim());
   };
 
   const handleKeyPress = (event) => {
-    if (event.key === "Enter") {
+    if (event.key === 'Enter') {
       handleSearch();
     }
   };
@@ -25,11 +25,7 @@ const Search = ({ onSearch }) => {
           onKeyPress={handleKeyPress}
           className="form-control"
         />
-        <button
-          className="btn btn-primary"
-          type="button"
-          onClick={handleSearch}
-        >
+        <button className="btn btn-primary" type="button" onClick={handleSearch}>
           <FaSearch />
         </button>
       </div>

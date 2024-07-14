@@ -1,16 +1,18 @@
-import React, { useState, useEffect } from "react";
-import { Navbar, Nav, Container } from "react-bootstrap";
-import { FaShoppingCart, FaUser, FaUserCircle } from "react-icons/fa";
-import { LinkContainer } from "react-router-bootstrap";
-import logo from "../assets/logo.png";
-import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { Navbar, Nav, Container } from 'react-bootstrap';
+import { FaShoppingCart, FaUser, FaUserCircle } from 'react-icons/fa';
+import { LinkContainer } from 'react-router-bootstrap';
+import logo from '../assets/logo.png';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
+  const cartItemsCount = useSelector((state) => state.cart.length);
 
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem('token');
 
   useEffect(() => {
     if (token) {
@@ -23,19 +25,15 @@ const Header = () => {
   }, [token]);
 
   const logOut = () => {
-    localStorage.removeItem("token");
-    toast.success("Logged out successfully!");
-    navigate("/login");
+    localStorage.removeItem('token');
+    localStorage.removeItem('cart');
+    toast.success('Logged out successfully!');
+    navigate('/login');
   };
 
   return (
     <header>
-      <Navbar
-        variant="dark"
-        expand="md"
-        style={{ background: "#2A272A" }}
-        collapseOnSelect
-      >
+      <Navbar variant="dark" expand="md" style={{ background: '#2A272A' }} collapseOnSelect>
         <Container>
           <LinkContainer to="/">
             <Navbar.Brand>
@@ -66,7 +64,7 @@ const Header = () => {
 
             <LinkContainer to="/cart">
               <Nav.Link>
-                <FaShoppingCart /> Cart
+                <FaShoppingCart /> Cart ({cartItemsCount})
               </Nav.Link>
             </LinkContainer>
           </Nav>
